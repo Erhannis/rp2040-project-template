@@ -4,7 +4,8 @@
 #![no_std]
 #![no_main]
 
-use rp2040_hal::entry;
+// use rp2040_hal::entry;
+use rp_pico::entry;
 use defmt::*;
 use defmt_rtt as _;
 use embedded_hal::digital::OutputPin;
