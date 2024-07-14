@@ -4,6 +4,9 @@
 #![no_std]
 #![no_main]
 
+#[cfg(feature = "enable_pio")]
+mod pio_example;
+
 // use rp2040_hal::entry;
 use rp_pico::entry;
 use defmt::*;
@@ -53,6 +56,17 @@ fn main() -> ! {
         sio.gpio_bank0,
         &mut pac.RESETS,
     );
+
+    #[cfg(feature = "enable_pio")]
+    {
+      // PIO example
+      let (mut pio, sm0, _, _, _) = rp2040_hal::pio::PIOExt::split(pac.PIO0, &mut pac.RESETS);
+      pio_example::blink_program_init(
+        &mut pio,
+        sm0,
+        pins.gpio14.into_function(),
+      );
+    }
 
     // This is the correct pin on the Raspberry Pico board. On other boards, even if they have an
     // on-board LED, it might need to be changed.

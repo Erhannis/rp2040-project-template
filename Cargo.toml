@@ -23,6 +23,14 @@ rp-pico = "0.9"
 rp2040-hal = { version = "0.10", features = ["rt", "critical-section-impl"] }
 rp2040-boot2 = "0.3"
 
+# Optional [enable_pio]
+pio-proc = {version = "0.2.2", optional = true}
+pio = {version = "0.2.1", optional = true}
+
+[features]
+default = ["enable_pio"]
+enable_pio = ["pio-proc", "pio"]
+
 # cargo build/run
 [profile.dev]
 codegen-units = 1
